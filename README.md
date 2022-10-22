@@ -1,4 +1,4 @@
-# qrcaas
+# qr-codes
 
 QR Codes as a Service - generate QR codes from URLs
 
