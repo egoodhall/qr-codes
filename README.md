@@ -11,4 +11,4 @@ https://qrcaas.fly.dev/api/v1/qr?size=256&data=https://www.youtube.com/watch?v=d
 
 will return the following QR code:
 
-![Example QR](https://qrcaas.fly.dev/api/v1/qr?size=256&data=https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+![Example QR](http://localhost:8080/api/v1/qr?size=256&data=https://www.youtube.com/watch?v=dQw4w9WgXcQ)
