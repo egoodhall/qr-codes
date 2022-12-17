@@ -46,7 +46,12 @@ func New(cfg Config) *echo.Echo {
 		middleware.Gzip(),
 	)
 
-	e.GET("/api/v1/qr", generateQr)
+	e.GET("/api/v1/qr", generateQr, func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			c.Response().Header().Set("Cache-Control", "max-age=604800")
+			return next(c)
+		}
+	})
 
 	return e
 }
@@ -66,6 +71,9 @@ func generateQr(c echo.Context) error {
 		MustString("data", &params.Data)
 	if err := binder.BindError(); err != nil {
 		return err
+	}
+	if params.Size > 512 {
+		return echo.NewHTTPError(http.StatusBadRequest, "size must be less than 512")
 	}
 
 	qr, err := qrcode.Encode(params.Data, qrcode.Highest, int(params.Size))
